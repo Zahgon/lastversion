@@ -25,18 +25,7 @@ class AlpineRepoSession(BaseProjectHolder):
     REPOS = ["main", "community"]
 
     def __init__(self, repo, hostname=None):
-        super().__init__(repo, hostname)
-        self.hostname = hostname or self.DEFAULT_HOSTNAME
-        self.branch = self.DEFAULT_BRANCH
-        self.arch = self.DEFAULT_ARCH
-        self.apk_repo = None  # Will be set when package is found
-        self.project = None
-
-        # Try to find the package in Alpine repositories
-        # This runs both for URL-based (hostname=DEFAULT_HOSTNAME) and
-        # explicit --at alpine (hostname=None -> set to DEFAULT_HOSTNAME)
-        if self.repo:
-            self._try_find_package()
+        pass
 
     def _try_find_package(self):
         """Try to find the package in Alpine repositories."""

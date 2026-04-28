@@ -38,13 +38,7 @@ class WordPressPluginRepoSession(BaseProjectHolder):
         pass
 
     def __init__(self, repo, hostname=None):
-        super().__init__(repo, hostname)
-        if hostname:
-            self.hostname = hostname
-        else:
-            self.hostname = WordPressPluginRepoSession.DEFAULT_HOSTNAME
-        self.is_core = repo and repo.lower() == "wordpress"
-        self.project = self.get_project()
+        pass
 
     def release_download_url(self, release, shorter=False):
         """Get release download URL."""

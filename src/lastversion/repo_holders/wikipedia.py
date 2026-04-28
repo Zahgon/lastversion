@@ -49,10 +49,7 @@ class WikipediaRepoSession(BaseProjectHolder):
     REPO_URL_PROJECT_OFFSET = 1
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        self.hostname = hostname
-        if not self.hostname:
-            self.hostname = self.DEFAULT_HOSTNAME
+        pass
 
     def get_latest(self, pre_ok=False, major=None):
         """Get the latest release."""

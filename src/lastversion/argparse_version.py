@@ -17,24 +17,7 @@ class VersionAction(Action):
 
     def __init__(self, **kwargs):
         # Set default values if not provided in kwargs
-        kwargs.setdefault("dest", SUPPRESS)
-        kwargs.setdefault("default", SUPPRESS)
-        kwargs.setdefault("nargs", 0)
-        kwargs.setdefault("help", "show program's version number and exit")
-        super().__init__(**kwargs)
-        self.version = kwargs.get("version2")
+        pass
 
     def __call__(self, parser, namespace, values, option_string=None):
-        version = f"%(prog)s {__version__}"
-        try:
-            last_version = lastversion.latest(__self__)
-            if __version__ == str(last_version):
-                version += ", up to date"
-            else:
-                version += f", newer version {last_version} available"
-        except ApiCredentialsError as e:
-            logging.warning(e)
-        formatter = parser.formatter_class(prog=parser.prog)
-        formatter.add_text(version)
-        _sys.stdout.write(formatter.format_help())
-        parser.exit()
+        pass

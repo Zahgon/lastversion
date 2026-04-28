@@ -130,34 +130,7 @@ class GitHubRepoSession(BaseProjectHolder):
         pass
 
     def __init__(self, repo, hostname=DEFAULT_HOSTNAME):
-        super().__init__(repo, hostname)
-        # dict holding repo/owner to feed contents of releases' atom
-        self.feed_contents = {}
-        # lazy loaded dict cache of /releases response keyed by tag, only first page
-        self.formal_releases_by_tag = None
-        self.rate_limited_count = 0
-        self.api_token = None
-        self.seen_semver = False
-        for var_name in self.TOKEN_ENV_VARS:
-            token = os.getenv(var_name)
-            if token:
-                self.api_token = token
-                log.info("Using API token %s.", var_name)
-                self.headers.update({"Authorization": f"token {self.api_token}"})
-                break
-        if not self.api_token:
-            log.info("No API token found in environment variables %s.", self.TOKEN_ENV_VARS)
-
-        # Explicitly specify the API version that we want:
-        self.headers.update({"Accept": "application/vnd.github+json"})
-
-        if self.hostname != self.DEFAULT_HOSTNAME:
-            self.api_base = f"https://{self.hostname}/api/v3"
-        else:
-            self.api_base = f"https://api.{self.DEFAULT_HOSTNAME}"
-
-        if "/" not in repo:
-            self.repo = self.find_repo_by_name_only(repo)
+        pass
 
     def get_rate_limit_url(self):
         """Get rate limit URL."""

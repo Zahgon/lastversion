@@ -104,29 +104,7 @@ class Version(PackagingVersion):
             version (str): The version-like string
             char_fix_required (bool): Should we treat alphanumerics as part of version
         """
-        self.fixed_letter_post_release = False
-
-        version = self.special_cases_transformation(version)
-        # Join status with its number, e.g., preview-3 -> pre3
-        version = self.join_dashed_number_status(version)
-        version = self.filter_relevant_parts(version)
-
-        if char_fix_required:
-            version = re.sub("(\\d)([a-z])$", self.fix_letter_post_release, version, 1)
-        # release-3_0_2 is often seen on Mercurial holders note that the
-        # above code removes "release-" already, so we are left with "3_0_2"
-        if re.search(r"^(?:\d+_)+(?:\d+)", version):
-            version = version.replace("_", ".")
-        # finally, split by dot "delimiter", see if there are common words
-        # which are definitely removable
-        parts = version.split(".")
-        version = []
-        for p in parts:
-            if p.lower() in ["release"]:
-                continue
-            version.append(p)
-        version = ".".join(version)
-        super().__init__(version)
+        pass
 
     @property
     def epoch(self):
@@ -208,32 +186,4 @@ class Version(PackagingVersion):
 
     def __str__(self):
         # type: () -> str
-        parts = []
-
-        # Epoch
-        if self.epoch != 0:
-            parts.append(f"{self.epoch}!")
-
-        # Release segment
-        parts.append(".".join(str(x) for x in self.release))
-
-        # Pre-release
-        if self.pre is not None:
-            parts.append("".join(str(x) for x in self.pre))
-
-        # Post-release
-        if self.post is not None:
-            if self.fixed_letter_post_release:
-                parts.append(f"{chr(self.post)}")
-            else:
-                parts.append(f".post{self.post}")
-
-        # Development release
-        if self.dev is not None:
-            parts.append(f".dev{self.dev}")
-
-        # Local version segment
-        if self.local is not None:
-            parts.append(f"+{self.local}")
-
-        return "".join(parts)
+        pass

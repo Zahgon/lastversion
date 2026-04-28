@@ -31,14 +31,7 @@ class FeedRepoSession(BaseProjectHolder):
         pass
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        self.home_soup = None
-        feeds = self.find_feed("https://" + hostname + "/")
-        if not feeds:
-            return
-        self.hostname = hostname
-        log.info("Using feed URL: %s", feeds[0])
-        self.feed_url = feeds[0]
+        pass
 
     def is_instance(self):
         pass

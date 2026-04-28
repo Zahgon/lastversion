@@ -101,18 +101,7 @@ class FileCacheBackend(CacheBackend):
             max_size: Max total cache size in bytes.
             auto_cleanup: Whether to run cleanup automatically when overdue.
         """
-        config = get_config()
-        self.cache_dir = cache_dir or config.file_cache_path
-        self.release_cache_dir = os.path.join(self.cache_dir, self.CACHE_SUBDIR)
-        self.default_ttl = default_ttl
-        self.max_age = max_age
-        self.max_size = max_size
-        self.auto_cleanup = auto_cleanup
-        self._ensure_cache_dir()
-
-        # Check if automatic cleanup is needed
-        if self.auto_cleanup:
-            self._maybe_cleanup()
+        pass
 
     def _ensure_cache_dir(self) -> None:
         """Ensure the cache directory exists."""
@@ -208,34 +197,7 @@ class RedisCacheBackend(CacheBackend):
             key_prefix: Prefix for all cache keys.
             default_ttl: Default TTL in seconds.
         """
-        try:
-            import redis  # pylint: disable=import-outside-toplevel
-        except ImportError as e:
-            raise ImportError(
-                "Redis support requires the 'redis' package. " "Install it with: pip install lastversion[redis]"
-            ) from e
-
-        self.key_prefix = key_prefix
-        self.default_ttl = default_ttl
-
-        if url:
-            self._client = redis.from_url(url)
-        else:
-            self._client = redis.Redis(
-                host=host,
-                port=port,
-                db=db,
-                password=password,
-                decode_responses=True,
-            )
-
-        # Test connection
-        try:
-            self._client.ping()
-            log.info("Connected to Redis at %s", url or f"{host}:{port}/{db}")
-        except redis.ConnectionError as e:
-            log.error("Failed to connect to Redis: %s", e)
-            raise
+        pass
 
     def _make_key(self, key: str) -> str:
         """Create a prefixed Redis key."""
@@ -294,9 +256,7 @@ class ReleaseDataCache:
             enabled: Whether caching is enabled.
             ttl: Default TTL in seconds.
         """
-        self.enabled = enabled
-        self.ttl = ttl
-        self._backend = backend
+        pass
 
     @property
     def backend(self) -> Optional[CacheBackend]:

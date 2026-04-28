@@ -13,7 +13,7 @@ class SystemRepoSession(BaseProjectHolder):
 
     # noinspection PyUnusedLocal
     def __init__(self, repo, hostname=None):
-        super().__init__(repo, hostname)
+        pass
 
     def dnf_get_available_version(self, pre_ok, major):
         """Get the latest release available via `dnf`."""

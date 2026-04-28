@@ -70,9 +70,7 @@ class InternalTimedDirLock:
 
     def __init__(self, path, threaded=True, timeout=None):
         # `path` is the target data file path to be protected
-        self.path = path
-        self._lock_file = f"{path}.lock"
-        self._timeout = 5 if timeout is None else timeout
+        pass
 
     def _read_lock_pid(self):
         """Read the PID from an existing lock file.
@@ -103,25 +101,10 @@ class InternalTimedDirLock:
         pass
 
     def __enter__(self):
-        deadline = time.time() + self._timeout
-        while True:
-            if self._write_lock_file():
-                break
-            # Lock exists - check if holder is still alive
-            if self._cleanup_stale_lock():
-                # Stale lock cleaned up, try again immediately
-                continue
-            if time.time() >= deadline:
-                raise LockAcquireTimeout(f"Failed to acquire lock for {self.path}")
-            time.sleep(0.1)
-        return self
+        pass
 
     def __exit__(self, exc_type, exc, tb):
-        try:
-            os.remove(self._lock_file)
-        except (IOError, OSError):
-            pass
-        return False
+        pass
 
 
 class SafeFileCache(FileCache):
@@ -224,50 +207,7 @@ class BaseProjectHolder(requests.Session):
         pass
 
     def __init__(self, name=None, hostname=None):
-        super().__init__()
-        self.mount("https://", requests.adapters.HTTPAdapter(max_retries=5))
-        app_name = __name__.split(".", maxsplit=1)[0]
-
-        # Load configuration
-        config = get_config()
-
-        self.cache_dir = None
-        self.cache = None
-        if not self.CACHE_DISABLED:
-            # Use configured cache path or default
-            self.cache_dir = config.file_cache_path
-            log.info("Using cache directory: %s.", self.cache_dir)
-            # Use a lock with a finite timeout to avoid rare hangs on cache writes
-            lock_cls = InternalTimedDirLock
-            self.cache = SafeFileCache(self.cache_dir, lock_class=lock_cls)
-            cache_adapter = CacheControlAdapter(cache=self.cache)
-            # noinspection HttpUrlsUsage
-            self.mount("http://", cache_adapter)
-            self.mount("https://", cache_adapter)
-        else:
-            log.info("Cache is disabled for this holder.")
-            # Still need cache_dir for names_cache_filename even if HTTP cache is disabled
-            self.cache_dir = config.file_cache_path
-
-        self.names_cache_filename = f"{self.cache_dir}/repos.json"
-
-        self.user_agent = f"{app_name}/{__version__}"
-        self.headers.update({"User-Agent": self.user_agent})
-        log.info("Created instance of %s", type(self).__name__)
-        self.branches = None
-        self.only = None
-        self.exclude = None
-        self.having_asset = None
-        self.hostname = hostname
-        if not self.hostname and self.DEFAULT_HOSTNAME:
-            self.hostname = self.DEFAULT_HOSTNAME
-        # identifies a project on a given hostname
-        # normalize repo to number of meaningful parameters
-        self.repo = self.get_base_repo_from_repo_arg(name)
-        # in some case we do not specify repo, but feed is discovered; no repo is given then
-        self.feed_url = None
-        self.even = False
-        self.formal = False
+        pass
 
     def request(self, *args, **kwargs):
         """Set default timeout for requests."""

@@ -17,10 +17,7 @@ class HelmChartRepoSession(BaseProjectHolder):
 
     # noinspection PyUnusedLocal
     def __init__(self, repo, hostname=None):
-        super().__init__(repo, hostname)
-        if not repo.endswith("Chart.yaml"):
-            self.repo = repo.rstrip("/") + "/Chart.yaml"
-        log.info("Helm Chart.yml: %s", repo)
+        pass
 
     def get_latest(self, pre_ok=False, major=None):
         """Get the latest release."""

@@ -67,34 +67,7 @@ class GiteaRepoSession(BaseProjectHolder):
         pass
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        # dict holding repo/owner to feed contents of releases' atom
-        self.feed_contents = {}
-        self.rate_limited_count = 0
-        self.api_token = os.getenv("GITEA_API_TOKEN")
-        self.hostname = hostname
-        if not self.hostname:
-            self.hostname = self.DEFAULT_HOSTNAME
-        # Explicitly specify the API version that we want:
-        self.headers.update({"Accept": "application/vnd.github.v3+json"})
-        if self.api_token:
-            log.info("Using API token.")
-            self.headers.update({"Authorization": f"token {self.api_token}"})
-        if self.hostname != self.DEFAULT_HOSTNAME:
-            self.api_base = f"https://{self.hostname}/api/v1"
-        else:
-            self.api_base = f"https://{self.DEFAULT_HOSTNAME}/api/v1"
-        if "/" not in repo:
-            official_repo = self.try_get_official(repo)
-            if official_repo:
-                repo = official_repo
-                log.info("Using official repo %s", repo)
-            else:
-                repo = self.find_repo_by_name_only(repo)
-                if repo:
-                    log.info("Using repo %s obtained from search API", self.repo)
-                else:
-                    return
+        pass
 
     @property
     def rate_limit_url(self):

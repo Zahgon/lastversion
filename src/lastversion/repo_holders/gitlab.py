@@ -27,18 +27,7 @@ class GitLabRepoSession(BaseProjectHolder):
     REPO_URL_PROJECT_COMPONENTS = True
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        self.pa_token = os.getenv("GITLAB_PA_TOKEN")
-        self.hostname = hostname
-        if not self.hostname:
-            self.hostname = self.DEFAULT_HOSTNAME
-        if self.pa_token:
-            log.info("Using Personal Access token.")
-            self.headers.update({"Private-Token": self.pa_token})
-        self.api_base = f"https://{self.hostname}/api/v4"
-        self.repo = self.find_gitlab_project_path(repo)
-        # lazy loaded dict cache of /releases response keyed by tag, only first page
-        self.formal_releases_by_tag = None
+        pass
 
     def repo_query(self, uri, params=None):
         """Query the repo API."""

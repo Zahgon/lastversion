@@ -28,12 +28,7 @@ class PypiRepoSession(BaseProjectHolder):
         pass
 
     def __init__(self, repo, hostname=None):
-        super().__init__(repo, hostname)
-        if hostname:
-            self.hostname = hostname
-        else:
-            self.hostname = PypiRepoSession.DEFAULT_HOSTNAME
-        self.project = self.get_project()
+        pass
 
     def release_download_url(self, release, shorter=False):
         """Get release download URL."""

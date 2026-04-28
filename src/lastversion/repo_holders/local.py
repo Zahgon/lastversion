@@ -12,8 +12,7 @@ class LocalVersionSession(BaseProjectHolder):
     DEFAULT_HOSTNAME = None
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        self.hostname = hostname
+        pass
 
     def get_latest(self, pre_ok=False, major=None):
         """Get the latest release."""

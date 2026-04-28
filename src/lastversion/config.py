@@ -80,9 +80,7 @@ class Config:
         Args:
             config_path: Optional path to config file. If None, uses default location.
         """
-        self._config: Dict[str, Any] = copy.deepcopy(DEFAULT_CONFIG)
-        self._config_path = config_path or self._get_default_config_path()
-        self._loaded = False
+        pass
 
     def _get_default_config_path(self) -> str:
         """Get the default configuration file path.

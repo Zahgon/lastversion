@@ -134,6 +134,10 @@ def latest(
         str: Single string containing tag, if found and `output_format` is `tag`
 
     """
+    def _return_from_cache(cached_data, fmt, is_stale=False):
+        """Helper to return cached data in the appropriate format."""
+        pass
+
     pass
 
 

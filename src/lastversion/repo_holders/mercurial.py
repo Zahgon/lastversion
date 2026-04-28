@@ -16,8 +16,7 @@ class MercurialRepoSession(BaseProjectHolder):
     SUBDOMAIN_INDICATOR = "hg"
 
     def __init__(self, repo, hostname):
-        super().__init__(repo, hostname)
-        self.hostname = hostname
+        pass
 
     def get_latest(self, pre_ok=False, major=None):
         """
