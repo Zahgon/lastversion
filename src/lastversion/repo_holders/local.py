@@ -17,11 +17,4 @@ class LocalVersionSession(BaseProjectHolder):
 
     def get_latest(self, pre_ok=False, major=None):
         """Get the latest release."""
-        if pre_ok:
-            log.info("--pre is not supported for local version sources")
-        if not major:
-            major = "stable"
-        ver_file = f"/usr/local/share/builder/{self.repo}-{major}.ver"
-        with open(ver_file, "r") as f:
-            version = f.read().replace("\n", "")
-            return {"version": version, "tag_name": version}
+        pass

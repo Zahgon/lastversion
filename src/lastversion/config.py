@@ -61,13 +61,7 @@ def deep_merge(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]
     Returns:
         Merged dictionary.
     """
-    result = base.copy()
-    for key, value in override.items():
-        if key in result and isinstance(result[key], dict) and isinstance(value, dict):
-            result[key] = deep_merge(result[key], value)
-        else:
-            result[key] = value
-    return result
+    pass
 
 
 class Config:
@@ -96,8 +90,7 @@ class Config:
         Returns:
             Path to the default config file.
         """
-        config_dir = user_config_dir(self.APP_NAME)
-        return os.path.join(config_dir, self.CONFIG_FILENAME)
+        pass
 
     def load(self) -> "Config":
         """Load configuration from file.
@@ -105,28 +98,12 @@ class Config:
         Returns:
             Self for chaining.
         """
-        if self._loaded:
-            return self
-
-        if os.path.exists(self._config_path):
-            try:
-                with open(self._config_path, "r", encoding="utf-8") as f:
-                    user_config = yaml.safe_load(f) or {}
-                self._config = deep_merge(DEFAULT_CONFIG, user_config)
-                log.info("Loaded configuration from %s", self._config_path)
-            except (IOError, yaml.YAMLError) as e:
-                log.warning("Error loading config file %s: %s", self._config_path, e)
-                self._config = copy.deepcopy(DEFAULT_CONFIG)
-        else:
-            log.debug("No config file found at %s, using defaults", self._config_path)
-
-        self._loaded = True
-        return self
+        pass
 
     @property
     def config_path(self) -> str:
         """Get the path to the configuration file."""
-        return self._config_path
+        pass
 
     def get(self, key: str, default: Any = None) -> Any:
         """Get a configuration value by dot-separated key.
@@ -138,15 +115,7 @@ class Config:
         Returns:
             Configuration value or default.
         """
-        self.load()
-        parts = key.split(".")
-        value = self._config
-        for part in parts:
-            if isinstance(value, dict) and part in value:
-                value = value[part]
-            else:
-                return default
-        return value
+        pass
 
     def set(self, key: str, value: Any) -> None:
         """Set a configuration value by dot-separated key.
@@ -157,82 +126,71 @@ class Config:
             key: Dot-separated key path (e.g., "cache.backend").
             value: Value to set.
         """
-        self.load()
-        parts = key.split(".")
-        config = self._config
-        for part in parts[:-1]:
-            if part not in config:
-                config[part] = {}
-            config = config[part]
-        config[parts[-1]] = value
+        pass
 
     @property
     def cache_backend(self) -> str:
         """Get the configured cache backend."""
-        return self.get("cache.backend", "file")
+        pass
 
     @property
     def release_cache_enabled(self) -> bool:
         """Check if release data cache is enabled."""
-        return self.get("cache.release_cache.enabled", False)
+        pass
 
     @property
     def release_cache_ttl(self) -> int:
         """Get the release cache TTL in seconds."""
-        return self.get("cache.release_cache.ttl", 3600)
+        pass
 
     @property
     def file_cache_path(self) -> str:
         """Get the file cache path."""
-        path = self.get("cache.file.path")
-        if path:
-            return path
-        return user_cache_dir(self.APP_NAME)
+        pass
 
     @property
     def file_cache_max_age(self) -> int:
         """Get the max age for file cache entries in seconds."""
-        return self.get("cache.file.max_age", 86400)
+        pass
 
     @property
     def file_cache_max_size(self) -> int:
         """Get the max size for file cache in bytes."""
-        return self.get("cache.file.max_size", 104857600)
+        pass
 
     @property
     def redis_url(self) -> Optional[str]:
         """Get the Redis URL if configured."""
-        return self.get("cache.redis.url")
+        pass
 
     @property
     def redis_host(self) -> str:
         """Get the Redis host."""
-        return self.get("cache.redis.host", "localhost")
+        pass
 
     @property
     def redis_port(self) -> int:
         """Get the Redis port."""
-        return self.get("cache.redis.port", 6379)
+        pass
 
     @property
     def redis_db(self) -> int:
         """Get the Redis database number."""
-        return self.get("cache.redis.db", 0)
+        pass
 
     @property
     def redis_password(self) -> Optional[str]:
         """Get the Redis password."""
-        return self.get("cache.redis.password")
+        pass
 
     @property
     def redis_key_prefix(self) -> str:
         """Get the Redis key prefix."""
-        return self.get("cache.redis.key_prefix", "lastversion:")
+        pass
 
     def to_dict(self) -> Dict[str, Any]:
         """Return the full configuration as a dictionary."""
-        self.load()
-        return self._config.copy()
+        pass
 
 
 def get_config(config_path: Optional[str] = None) -> Config:
@@ -244,10 +202,7 @@ def get_config(config_path: Optional[str] = None) -> Config:
     Returns:
         The global Config instance.
     """
-    global _config_instance  # pylint: disable=global-statement
-    if _config_instance is None:
-        _config_instance = Config(config_path)
-    return _config_instance
+    pass
 
 
 def reset_config() -> None:
@@ -255,5 +210,4 @@ def reset_config() -> None:
 
     Useful for testing.
     """
-    global _config_instance  # pylint: disable=global-statement
-    _config_instance = None
+    pass
